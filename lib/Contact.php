@@ -1,4 +1,5 @@
 <?php
+
 class Contact {
 	
 	private $id;
@@ -18,7 +19,7 @@ class Contact {
 	}
 	
 	/**
-	 * idrata l'oggetto da un'array, tipicamente un'array associativo ricavato da mysql_fetch_assoc()
+	 * idrata l'oggetto da un array, tipicamente un array associativo ricavato da mysql_fetch_assoc()
 	 * @param array $array: array associativo del tipo Array ( [id] => 1 [firstname] => Jacopo [lastname] => Romei [phone] => 0543123543 [mobile] => 34012345 )
 	 */
 	public function hydrate($array) {
@@ -51,16 +52,16 @@ class Contact {
 		return $this->id = $v;
 	}
 	public function setFirstname($v) {
-		return $this->firstname = $v;;
+		return $this->firstname = $v;
 	}
 	public function setLastname($v) {
-		return $this->lastname = $v;;
+		return $this->lastname = $v;
 	}
 	public function setPhone($v) {
-		return $this->phone = $v;;
+		return $this->phone = $v;
 	}
 	public function setMobile($v) {
-		return $this->mobile = $v;;
+		return $this->mobile = $v;
 	}
 	
 	public function isNew() {
@@ -68,9 +69,9 @@ class Contact {
 	}
 	
 	public function save() {
-		$c = new Connection();
-		$query = '';
-		$rs = false;
+		$c			= new Connection();
+		$query	= '';
+		$rs			= false;
 		
 		if(!$this->isNew()) {
 			$query = sprintf("UPDATE contacts set firstname = '%s', 
@@ -83,18 +84,15 @@ class Contact {
                        mysql_real_escape_string($this->getMobile()),
                        mysql_real_escape_string($this->getId())
                       );
-			$rs = mysql_query($query);
 		} else {
-			$c = new Connection();
-		
 			$query = sprintf("INSERT INTO contacts (firstname, lastname, phone, mobile) VALUES ('%s', '%s', '%s', '%s')",
                        mysql_real_escape_string($this->getFirstname()),
                        mysql_real_escape_string($this->getLastname()),
                        mysql_real_escape_string($this->getPhone()),
                        mysql_real_escape_string($this->getMobile())
                        );
-			$rs = mysql_query($query); 
 		}
+		$rs = mysql_query($query); 
 		
 		if (!$rs)
     {

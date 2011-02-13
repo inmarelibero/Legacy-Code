@@ -11,7 +11,7 @@ class Connection {
 	}
 	
 	public function close() {
-		mysql_close($this->connection);
+		return mysql_close($this->connection);
 	}
 	
 }

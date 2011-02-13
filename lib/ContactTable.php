@@ -1,7 +1,5 @@
 <?php
 
-include_once(dirname(__FILE__).'/Connection.php');
-
 class ContactTable {
 	
 	public static function getAll() {
