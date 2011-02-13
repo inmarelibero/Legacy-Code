@@ -17,9 +17,9 @@ class ContactTable {
 			array_push($arr_output, $contact);
 		}
 		
-		$c->close();
-		
-		if (!$rs) {
+		$c->close();		
+		if (!$rs)
+		{
 		  die_with_error(mysql_error(), $query);
 		}
 		

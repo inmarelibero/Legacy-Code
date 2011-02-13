@@ -14,6 +14,8 @@ class Contact {
 	public function __construct($array = array()) {
 		if(is_array($array) && count($array)>0) {
 			$this->hydrate($array);
+			print_r($array);
+			//exit;
 		}		
 	}
 	
@@ -45,6 +47,49 @@ class Contact {
 	}
 	public function getMobile() {
 		return $this->mobile;
+	}
+	
+	public function setId($v) {
+		return $this->id = $v;
+	}
+	public function setFirstname($v) {
+		return $this->firstname = $v;;
+	}
+	public function setLastname($v) {
+		return $this->lastname = $v;;
+	}
+	public function setPhone($v) {
+		return $this->phone = $v;;
+	}
+	public function setMobile($v) {
+		return $this->mobile = $v;;
+	}
+	
+	public function isNew() {
+		return $this->getId() === null || $this->getId() == '';
+	}
+	
+	public function save() {
+		if(!$this->isNew()) {
+			
+		} else {
+			$c = new Connection();
+		
+			$query = sprintf("INSERT INTO contacts (firstname, lastname, phone, mobile) VALUES ('%s', '%s', '%s', '%s')",
+                       mysql_real_escape_string($this->getFirstname()),
+                       mysql_real_escape_string($this->getLastname()),
+                       mysql_real_escape_string($this->getPhone()),
+                       mysql_real_escape_string($this->getMobile()));
+			$rs = mysql_query($query);
+			
+			$c->close();
+	    if (!$rs)
+	    {
+	      die_with_error(mysql_error(), $query);
+	    }
+	    
+	    return $rs;
+		}
 	}
 	
 }
