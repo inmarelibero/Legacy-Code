@@ -1,23 +1,15 @@
 <?php
 include_once('config.php');
 
-if(!$_GET['id'])
+$contact = ContactTable::getById($_GET['id']);
+if($contact)
 {
- die('Some error occured!!');
+	$contact->delete();
 }
-
-$db = @mysql_connect($database['host'], $database['username'], $database['password']) or die('Can\'t connect do database');
-@mysql_select_db($database['name']) or die('The database selected does not exists');
-
-$query = sprintf('DELETE FROM contacts where ID = %s',
-                 mysql_real_escape_string($_GET['id']));
-                 
-if(!mysql_query($query))
+else
 {
-  die_with_error(mysql_error(), $query);
+	die('il contatto con id = '.$_GET['id'].' non esiste');
 }
-
-mysql_close($db);
 
 header('Location: index.php');
 

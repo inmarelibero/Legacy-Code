@@ -68,7 +68,6 @@ class Contact {
 	}
 	
 	public function save() {
-		
 		$c = new Connection();
 		$query = '';
 		$rs = false;
@@ -103,8 +102,20 @@ class Contact {
     }
 		$c->close();
 		return $rs;
-		
-		
+	}
+	
+	public function delete() {
+		if(!$this->isNew()) {
+			$c = new Connection();
+			
+			$query = sprintf('DELETE FROM contacts where ID = %s',
+                 mysql_real_escape_string($this->getId()));
+			if(!mysql_query($query))
+			{
+			  die_with_error(mysql_error(), $query);
+			}
+			$c->close();
+		}
 	}
 	
 }
