@@ -1,11 +1,9 @@
 <?php
 
-/*
-$database['host'] 		= 'localhost';
-$database['username'] = 'legacy_code';
-$database['password'] = 'legacy_code';
-$database['name'] 		= 'contacts';
-*/
+define('DATABASE_HOST', 'localhost');
+define('DATABASE_USERNAME', 'legacy_code');
+define('DATABASE_PASSWORD', 'legacy_code');
+define('DATABASE_NAME', 'contacts');
 
 error_reporting(0);
 require_once('functions.php');
