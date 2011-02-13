@@ -1,14 +1,11 @@
 <?php
 include_once('functions.php');
 include_once('lib/ContactTable.php');
+include_once('lib/Contact.php');
 
 
 $contact_table = new ContactTable();
-$rs = $contact_table->getAll();
-
-
-$num = mysql_num_rows($rs);
-
+$arr_contacts = $contact_table->getAll();
 ?>
 
 <?php include_once('header.php') ?>
@@ -17,7 +14,7 @@ $num = mysql_num_rows($rs);
   <a href="new.php">New contact</a>
  </div>
  
-<?php if ($num) : ?>
+<?php if (count($arr_contacts)>0) : ?>
   <table border="1" cellspacing="0" cellpadding="5">
   <tr>
     <th>Last Name</th>
@@ -26,15 +23,15 @@ $num = mysql_num_rows($rs);
     <th>Mobile</th>
     <th>&nbsp;</th>
   </tr>
-  <?php while($row = mysql_fetch_assoc($rs)) :?>
+  <?php foreach($arr_contacts as $contact) :?>
     <tr>
-      <td><a href="edit.php?id=<?php echo $row['id']?>" title="Modifica"><?php echo $row['lastname']?></a></td>
+      <td><a href="edit.php?id=<?php echo $contact->getId()?>" title="Modifica"><?php echo$contact->getLastname()?></a></td>
       <td><?php echo $row['firstname']?></a></td>
-      <td><a href="callto://<?php echo $row['phone']?>"><?php echo $row['phone']?></a></td>
-      <td><a href="callto://<?php echo $row['mobile']?>"><?php echo $row['mobile']?></a></td>
-      <td>[<a href="remove.php?id=<?php echo $row['id']?>" title="Elimina" onclick="if (confirm('Are you sure?')) {return true;} return false;">X</a>]</td>
+      <td><a href="callto://<?php echo $contact->getPhone()?>"><?php echo $contact->getPhone()?></a></td>
+      <td><a href="callto://<?php echo $contact->getMobile()?>"><?php echo $contact->getMobile()?></a></td>
+      <td>[<a href="remove.php?id=<?php echo $contact->getId()?>" title="Elimina" onclick="if (confirm('Are you sure?')) {return true;} return false;">X</a>]</td>
     </tr>
-  <?php endwhile;?>
+  <?php endforeach;?>
   </table>
 
  <?php else: ?>
