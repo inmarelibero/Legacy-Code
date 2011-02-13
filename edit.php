@@ -16,23 +16,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   
   if(count($errors) == 0)
   {
-    $query = sprintf("UPDATE contacts set firstname = '%s', 
-                                                                          lastname = '%s',
-                                                                          phone = '%s', 
-                                                                          mobile = '%s' WHERE id = %s",
-                       mysql_real_escape_string($_POST['firstname']),
-                       mysql_real_escape_string($_POST['lastname']),
-                       mysql_real_escape_string($_POST['phone']),
-                       mysql_real_escape_string($_POST['mobile']),
-                       mysql_real_escape_string($_POST['id'])
-                      );
-    
-    $rs = mysql_query($query);
-    
-    if (!$rs)
-    {
-      die_with_error(mysql_error(), $query);
-    }
+  	$contact = new Contact($_POST);
+  	$contact->save();
     
     header('Location: index.php');
   }

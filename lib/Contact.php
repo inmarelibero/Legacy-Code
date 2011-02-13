@@ -69,7 +69,27 @@ class Contact {
 	
 	public function save() {
 		if(!$this->isNew()) {
+			$c = new Connection();
+		
+			$query = sprintf("UPDATE contacts set firstname = '%s', 
+                                                                          lastname = '%s',
+                                                                          phone = '%s', 
+                                                                          mobile = '%s' WHERE id = %s",
+                       mysql_real_escape_string($this->getFirstname()),
+                       mysql_real_escape_string($this->getLastname()),
+                       mysql_real_escape_string($this->getPhone()),
+                       mysql_real_escape_string($this->getMobile()),
+                       mysql_real_escape_string($this->getId())
+                      );
+			$rs = mysql_query($query);
 			
+			$c->close();
+	    if (!$rs)
+	    {
+	      die_with_error(mysql_error(), $query);
+	    }
+	    
+	    return $rs;
 		} else {
 			$c = new Connection();
 		
@@ -77,7 +97,8 @@ class Contact {
                        mysql_real_escape_string($this->getFirstname()),
                        mysql_real_escape_string($this->getLastname()),
                        mysql_real_escape_string($this->getPhone()),
-                       mysql_real_escape_string($this->getMobile()));
+                       mysql_real_escape_string($this->getMobile())
+                       );
 			$rs = mysql_query($query);
 			
 			$c->close();
