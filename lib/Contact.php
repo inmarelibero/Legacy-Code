@@ -14,8 +14,6 @@ class Contact {
 	public function __construct($array = array()) {
 		if(is_array($array) && count($array)>0) {
 			$this->hydrate($array);
-			print_r($array);
-			//exit;
 		}		
 	}
 	
