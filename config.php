@@ -7,5 +7,7 @@ define('DATABASE_NAME', 'contacts');
 
 error_reporting(0);
 require_once('functions.php');
+include_once('lib/ContactTable.php');
+include_once('lib/Contact.php');
 
 ?>

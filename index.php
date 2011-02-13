@@ -1,7 +1,5 @@
 <?php
 include_once('config.php');
-include_once('lib/ContactTable.php');
-include_once('lib/Contact.php');
 
 $contact_table = new ContactTable();
 $arr_contacts = $contact_table->getAll();
