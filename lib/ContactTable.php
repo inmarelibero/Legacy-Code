@@ -37,5 +37,64 @@ class ContactTable {
 		return null;
 	}
 	
+	/**
+	 * salva nel database un oggetto del tipo Contact
+	 * se l'oggetto esiste nel database lo aggiorna, altrimenti lo crea
+	 * @param Contact $contact
+	 */
+	public static function save($contact) {
+		if(get_class($contact) == 'Contact' && $contact !== null) {
+			$c			= new Connection();
+			$query	= '';
+			$rs			= false;
+			
+			if(!$contact->isNew()) {
+				$query = sprintf("UPDATE contacts set firstname = '%s', 
+	                                                                          lastname = '%s',
+	                                                                          phone = '%s', 
+	                                                                          mobile = '%s' WHERE id = %s",
+	                       mysql_real_escape_string($contact->getFirstname()),
+	                       mysql_real_escape_string($contact->getLastname()),
+	                       mysql_real_escape_string($contact->getPhone()),
+	                       mysql_real_escape_string($contact->getMobile()),
+	                       mysql_real_escape_string($contact->getId())
+	                      );
+			} else {
+				$query = sprintf("INSERT INTO contacts (firstname, lastname, phone, mobile) VALUES ('%s', '%s', '%s', '%s')",
+	                       mysql_real_escape_string($contact->getFirstname()),
+	                       mysql_real_escape_string($contact->getLastname()),
+	                       mysql_real_escape_string($contact->getPhone()),
+	                       mysql_real_escape_string($contact->getMobile())
+	                       );
+			}
+			
+			$rs = mysql_query($query); 
+			if (!$rs)
+	    {
+	      die_with_error(mysql_error(), $query);
+	    }
+			$c->close();
+			return $rs;
+		}
+		return null;
+	}
+	
+	public static function delete($contact) {
+		if(get_class($contact) == 'Contact' && $contact !== null) {
+			if(!$contact->isNew()) {
+				$c = new Connection();
+				
+				$query = sprintf('DELETE FROM contacts where ID = %s',
+	                 mysql_real_escape_string($contact->getId()));
+				if(!mysql_query($query))
+				{
+				  die_with_error(mysql_error(), $query);
+				}
+				$c->close();
+			}
+		}
+		return null;
+	}
+	
 }
 ?>
