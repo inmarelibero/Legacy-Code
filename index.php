@@ -1,8 +1,8 @@
 <?php
 include_once('config.php');
 
-$contact_table = new ContactTable();
-$arr_contacts = $contact_table->getAll();
+//$contact_table = new ContactTable();
+$arr_contacts = ContactTable::getAll();
 ?>
 
 

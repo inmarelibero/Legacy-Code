@@ -4,7 +4,7 @@ include_once(dirname(__FILE__).'/Connection.php');
 
 class ContactTable {
 	
-	public function getAll() {
+	public static function getAll() {
 		$c = new Connection();
 		
 		$query = 'SELECT * FROM contacts ORDER BY lastname';
