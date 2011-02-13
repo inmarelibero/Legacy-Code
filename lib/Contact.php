@@ -7,13 +7,27 @@ class Contact {
 	private $phone;
 	private $mobile;
 	
-	public function hydrate($query_row) {
-		if(is_array($query_row)) {
-			$this->id					= $query_row['id'];
-			$this->firstname	= $query_row['firstname'];
-			$this->lastname		= $query_row['lastname'];
-			$this->phone			= $query_row['phone'];
-			$this->mobile			= $query_row['mobile'];
+	/**
+	 * costruttore
+	 * @param array $array: array associativo del tipo Array ( [id] => 1 [firstname] => Jacopo [lastname] => Romei [phone] => 0543123543 [mobile] => 34012345 )
+	 */
+	public function __construct($array = array()) {
+		if(is_array($array) && count($array)>0) {
+			$this->hydrate($array);
+		}		
+	}
+	
+	/**
+	 * idrata l'oggetto da un'array, tipicamente un'array associativo ricavato da mysql_fetch_assoc()
+	 * @param array $array: array associativo del tipo Array ( [id] => 1 [firstname] => Jacopo [lastname] => Romei [phone] => 0543123543 [mobile] => 34012345 )
+	 */
+	public function hydrate($array) {
+		if(is_array($array)) {
+			$this->id					= $array['id'];
+			$this->firstname	= $array['firstname'];
+			$this->lastname		= $array['lastname'];
+			$this->phone			= $array['phone'];
+			$this->mobile			= $array['mobile'];
 		}
 	}
 	

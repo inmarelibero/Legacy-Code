@@ -12,8 +12,8 @@ class ContactTable {
 		
 		$arr_output = array();
 		while($row = mysql_fetch_assoc($rs)) {
-			$contact = new Contact();
-			$contact->hydrate($row);
+			$contact = new Contact($row);
+			//$contact->hydrate($row);
 			array_push($arr_output, $contact);
 		}
 		
