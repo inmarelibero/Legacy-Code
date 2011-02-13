@@ -12,7 +12,7 @@ $arr_contacts = ContactTable::getAll();
   <a href="new.php">New contact</a>
  </div>
  
-<?php if (count($arr_contacts)>0) : ?>
+<?php if (count($arr_contacts) > 0) : ?>
   <table border="1" cellspacing="0" cellpadding="5">
   <tr>
     <th>Last Name</th>
@@ -21,7 +21,7 @@ $arr_contacts = ContactTable::getAll();
     <th>Mobile</th>
     <th>&nbsp;</th>
   </tr>
-  <?php foreach($arr_contacts as $contact) :?>
+  <?php foreach ($arr_contacts as $contact) :?>
     <tr>
       <td><a href="edit.php?id=<?php echo $contact->getId()?>" title="Modifica"><?php echo $contact->getLastname()?></a></td>
       <td><?php echo $contact->getFirstname()?></a></td>

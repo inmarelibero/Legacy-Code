@@ -2,6 +2,7 @@
 include_once('config.php');
 
 $contact = ContactTable::getById($_GET['id']);
+
 if($contact)
 {
 	$contact->delete();
