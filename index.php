@@ -1,17 +1,11 @@
 <?php
-include_once('config.php');
-include_once('lib/Connection.php');
-
-$conn = new Connection($database);
+include_once('functions.php');
+include_once('lib/ContactTable.php');
 
 
-$query = 'SELECT * FROM contacts ORDER BY lastname';
-$rs = mysql_query($query);
+$contact_table = new ContactTable();
+$rs = $contact_table->getAll();
 
-if (!$rs)
-{
-  die_with_error(mysql_error(), $query);
-}
 
 $num = mysql_num_rows($rs);
 
@@ -48,8 +42,3 @@ $num = mysql_num_rows($rs);
 <?php endif ?>
 
 <?php include_once('footer.php') ?>
-
-<?php
-  mysql_free_result($rs);
-  $conn->close();
-?>
