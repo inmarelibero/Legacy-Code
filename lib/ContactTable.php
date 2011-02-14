@@ -6,7 +6,13 @@ class ContactTable {
 	 * restituisce un array di tutti gli oggetti nella tabella contacts
 	 */
 	public static function getAll() {
+		$arr_output = array();
+		
 		$c = new Connection();
+		if (!$c)
+		{
+			return $arr_output; 
+		}
 		
 		$query = 'SELECT * FROM contacts ORDER BY lastname';
 		$rs = mysql_query($query);
@@ -16,7 +22,7 @@ class ContactTable {
 		  die_with_error(mysql_error(), $query);
 		}
 		
-		$arr_output = array();
+		
 		while ($row = mysql_fetch_assoc($rs))
 		{
 			$contact = new Contact($row);
@@ -29,10 +35,14 @@ class ContactTable {
 	
 	/**
 	 * ritorna un oggetto di tipo Contact se esiste nel database, altrimenti NULL
-	 * @param Integer $id
+	 * @param unknown_type $id
 	 */
-	public static function getById(Integer $id) {
+	public static function getById($id) {
 		$c = new Connection();
+		if (!$c)
+		{
+			return null; 
+		}
 		
 		$query = sprintf('SELECT * FROM contacts WHERE id = %s', mysql_real_escape_string($id));
 		$rs = mysql_query($query);
@@ -54,6 +64,11 @@ class ContactTable {
 		if (get_class($contact) === 'Contact' && $contact !== null)
 		{
 			$c			= new Connection();
+			if (!$c)
+			{
+				return false; 
+			}
+			
 			$query	= '';
 			$rs			= false;
 			
@@ -101,7 +116,11 @@ class ContactTable {
 			if (!$contact->isNew())
 			{
 				$c = new Connection();
-				
+				if (!$c)
+				{
+					return false; 
+				}
+			
 				$query = sprintf('DELETE FROM contacts where ID = %s',
 	                 mysql_real_escape_string($contact->getId()));
 	                 

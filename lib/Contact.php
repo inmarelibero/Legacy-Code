@@ -12,7 +12,7 @@ class Contact {
 	 * costruttore
 	 * @param array $array: array associativo del tipo Array ( [id] => 1 [firstname] => Jacopo [lastname] => Romei [phone] => 0543123543 [mobile] => 34012345 )
 	 */
-	public function __construct(Array $array = array()) {
+	public function __construct(Array $array = Array()) {
 		if (is_array($array) && count($array) > 0)
 		{
 			$this->hydrate($array);
@@ -21,9 +21,9 @@ class Contact {
 	
 	/**
 	 * idrata l'oggetto da un array, tipicamente un array associativo ricavato da mysql_fetch_assoc()
-	 * @param array $array: array associativo del tipo Array ( [id] => 1 [firstname] => Jacopo [lastname] => Romei [phone] => 0543123543 [mobile] => 34012345 )
+	 * @param Array $array: array associativo del tipo Array ( [id] => 1 [firstname] => Jacopo [lastname] => Romei [phone] => 0543123543 [mobile] => 34012345 )
 	 */
-	public function hydrate(array $array) {
+	public function hydrate(array $array = Array()) {
 		if (is_array($array))
 		{
 			$this->id					= $array['id'];
@@ -50,32 +50,32 @@ class Contact {
 		return $this->mobile;
 	}
 	
-	public function setId(String $v) {
+	public function setId($v) {
 		return $this->id = $v;
 	}
-	public function setFirstname(String $v) {
+	public function setFirstname($v) {
 		return $this->firstname = $v;
 	}
-	public function setLastname(String $v) {
+	public function setLastname($v) {
 		return $this->lastname = $v;
 	}
-	public function setPhone(String $v) {
+	public function setPhone($v) {
 		return $this->phone = $v;
 	}
-	public function setMobile(String $v) {
+	public function setMobile($v) {
 		return $this->mobile = $v;
 	}
-	
+
 	public function isNew() {
 		return $this->getId() === null || $this->getId() == '';
 	}
 	
 	public function save() {
-		ContactTable::save($this);
+		return ContactTable::save($this);
 	}
 	
 	public function delete() {
-		ContactTable::delete($this);
+		return ContactTable::delete($this);
 	}
 	
 }
